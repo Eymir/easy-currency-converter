@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_refresh" 
+    	  android:visible="true" 
+    	  android:title="@string/strRefresh" 
+    	  android:enabled="true"
+    	  ></item>
+    <item android:id="@+id/menu_donate" 
+    	  android:title="@string/strDonate"></item>
+    <item android:title="Help" 
+    	  android:id="@+id/menu_help"></item>
+    
+</menu>
