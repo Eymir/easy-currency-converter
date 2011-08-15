@@ -6,7 +6,9 @@ import java.util.Map;
 
 import android.app.Dialog;
 import android.app.ListActivity;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,7 +16,7 @@ import android.widget.Toast;
 
 public class EasyCurrencyConverterActivity extends ListActivity {
     /** Called when the activity is first created. */
-	private final int DIALOG_HELP = 0;
+	private final int DIALOG_HELP = 100;
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,14 +55,28 @@ public class EasyCurrencyConverterActivity extends ListActivity {
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		Dialog dialog;
+		Log.d("Activity", "CrateDialog: " + id);
 		
 		switch (id){
-		case DIALOG_HELP :
-			dialog = null;
-		default:
-			dialog = null;
+			case DIALOG_HELP :
+				dialog = showHelp();
+				break;
+			default:
+				dialog = null;
 		}
 		
+		return dialog;
+	}
+	
+	
+	private Dialog showHelp(){
+		Log.d("ShowHelp", "Called.. ");
+		Context ctx = getApplicationContext();
+		Dialog dialog = new Dialog(ctx);
+		dialog.setContentView(R.layout.dialog_layout);
+		
+		dialog.setTitle("About this...");
+		Log.d("ShowHelp", "Returning the dialog: " + dialog);
 		return dialog;
 	}
 	
