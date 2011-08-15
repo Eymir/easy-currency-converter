@@ -43,7 +43,6 @@ public class EasyCurrencyConverterActivity extends ListActivity {
 			return true;
 		case R.id.menu_help:
 			showDialog(DIALOG_HELP);
-			Toast.makeText(this, "Helph", Toast.LENGTH_SHORT).show();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
