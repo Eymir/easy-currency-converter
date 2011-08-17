@@ -20,14 +20,15 @@ public class EasyCurrencyConverterActivity extends ListActivity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.getListView().setDividerHeight(2);
         List<Currency> data = getData();
         
         setListAdapter(new CurrencyDownloadAdapter(this, data));
+        
     }
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// TODO Auto-generated method stub
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main_menu, menu);
 		return true;
