@@ -4,6 +4,7 @@ import org.nicobalestra.currencyconverter.data.CurrenciesDB;
 
 import android.app.Dialog;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -90,6 +91,8 @@ public class EasyCurrencyConverterActivity extends ListActivity {
 		
 		if (c.getCount() <= 0){
 			//Start the downloading of the currencies in a new thread...
+			ProgressDialog dialog = ProgressDialog.show(this, "Updating Currencies", "Downloading of the last currency values", true, true);
+			
 		}
 		
 		startManagingCursor(c);
