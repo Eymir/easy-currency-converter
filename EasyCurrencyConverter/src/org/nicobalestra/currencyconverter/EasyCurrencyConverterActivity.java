@@ -1,12 +1,11 @@
 package org.nicobalestra.currencyconverter;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import org.nicobalestra.currencyconverter.data.CurrenciesDB;
 
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -17,13 +16,16 @@ import android.widget.Toast;
 public class EasyCurrencyConverterActivity extends ListActivity {
     /** Called when the activity is first created. */
 	private final int DIALOG_HELP = 100;
+	
+	CurrenciesDB currenciesDB;
+
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getListView().setDividerHeight(2);
-        List<Currency> data = getData();
+        setContentView(R.layout.main_currency_list);
         
-        setListAdapter(new CurrencyDownloadAdapter(this, data));
+        fillList();
         
     }
 	
@@ -80,18 +82,25 @@ public class EasyCurrencyConverterActivity extends ListActivity {
 		Log.d("ShowHelp", "Returning the dialog: " + dialog);
 		return dialog;
 	}
-	
-	public List<Currency>getData(){
+
+	private void fillList(){
+		this.currenciesDB= new CurrenciesDB(this);
+		currenciesDB.open();
+		Cursor c = currenciesDB.getLatestCurrencies();
 		
-		List<Currency> data = new ArrayList<Currency>();
-		
-		Map<String, Integer> staticData = Currency.getCurrenciesDefinition();	
-		
-		for (String currencyName : staticData.keySet() ){
-			Currency curr = new Currency(currencyName, Math.random());
-			data.add(curr);
+		if (c.getCount() <= 0){
+			//Start the downloading of the currencies in a new thread...
 		}
 		
-		return data;
+		startManagingCursor(c);
+		
+		CurrencyDownloadAdapter adapter = new CurrencyDownloadAdapter(this, c);
+		setListAdapter(adapter);
+	}
+
+	@Override
+	protected void onDestroy() {
+		currenciesDB.close();
+		
 	}
 }

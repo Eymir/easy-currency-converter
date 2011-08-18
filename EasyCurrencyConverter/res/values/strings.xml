@@ -4,4 +4,5 @@
     <string name="app_name">Easy Currency Converter</string>
     <string name="strRefresh">Refresh</string>
     <string name="strDonate">Donate</string>
+    <string name="noCurrenciesAvailable">No currencies available</string>
 </resources>

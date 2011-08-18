@@ -3,6 +3,10 @@ package org.nicobalestra.currencyconverter;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.nicobalestra.currencyconverter.data.CurrencyStorageHelper;
+
+import android.database.Cursor;
+
 public class Currency {
 
 	
@@ -50,7 +54,10 @@ public class Currency {
 	}
 	
 	private String name;
+	private String fullName;
 	
+	private long lastUpdateDate;
+	private long lastDownloadDate;
 	private double value;
 	
 	private int imgResourceID;
@@ -61,6 +68,15 @@ public class Currency {
 		this.imgResourceID = imgLookup.get(this.name);
 	}
 
+	public Currency(Cursor cursor){
+		this.name = cursor.getString(cursor.getColumnIndex(CurrencyStorageHelper.COL_CURRENCY_CODE));
+		this.fullName = cursor.getString(cursor.getColumnIndex(CurrencyStorageHelper.COL_CURRENCY_FULL_NAME));
+		
+		this.value = cursor.getDouble(cursor.getColumnIndex(CurrencyStorageHelper.COL_CURRENCY_VALUE));
+		this.lastUpdateDate = cursor.getLong(cursor.getColumnIndex(CurrencyStorageHelper.COL_LAST_UPDATE));
+		this.lastDownloadDate = cursor.getLong(cursor.getColumnIndex(CurrencyStorageHelper.COL_LAST_DOWNLOADED));
+	}
+	
 	/**
 	 * @return the name
 	 */
@@ -100,5 +116,8 @@ public class Currency {
 	public static Map getCurrenciesDefinition(){
 		return imgLookup; 
 	}
-	
+
+	public String getFullName() {
+		return this.fullName;
+	}
 }

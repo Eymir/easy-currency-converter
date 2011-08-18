@@ -2,6 +2,7 @@ package org.nicobalestra.currencyconverter.data;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 public class CurrenciesDB {
@@ -14,7 +15,7 @@ public class CurrenciesDB {
 		this.ctx = mCtx;
 	}
 	
-	public CurrenciesDB open(){
+	public CurrenciesDB open() throws SQLException {
 		this.dbHelper = new CurrencyStorageHelper(this.ctx);
 		this.db = dbHelper.getWritableDatabase();
 		return this;
@@ -31,9 +32,9 @@ public class CurrenciesDB {
 						      + " ," + CurrencyStorageHelper.COL_CURRENCY_VALUE
 						      + " ," + CurrencyStorageHelper.COL_LAST_UPDATE
 						      + " ," + CurrencyStorageHelper.COL_LAST_DOWNLOADED
-						      + " FROM " + CurrencyStorageHelper.DATABASE_NAME 
+						      + " FROM " + CurrencyStorageHelper.TABLE_CURRENCIES 
 						      + " WHERE date(" + CurrencyStorageHelper.COL_LAST_DOWNLOADED + ") = " 
-						      +	"(SELECT MAX(date(" + CurrencyStorageHelper.COL_LAST_DOWNLOADED + ") "
-						      + " FROM " + CurrencyStorageHelper.DATABASE_NAME , null);
+						      +	"(SELECT MAX(date(" + CurrencyStorageHelper.COL_LAST_DOWNLOADED + ")) "
+						      + " FROM " + CurrencyStorageHelper.TABLE_CURRENCIES  + ") ", null);
 	}
 }
