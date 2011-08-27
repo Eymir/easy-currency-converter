@@ -21,7 +21,7 @@ public class CurrencyDownloadAdapter extends SimpleCursorAdapter {
 		super(context, 
 			  CurrencyDownloadAdapter.layout, 
 			  c, 
-			  new String[] {CurrencyStorageHelper.COL_CURRENCY_FULL_NAME,
+			  new String[] {CurrencyStorageHelper.COL_DEFINITION_FULL_NAME,
 							CurrencyStorageHelper.COL_CURRENCY_VALUE}, 
 			  new int[] {R.id.currencyAbbr,
 						 R.id.currencyValue});
@@ -36,8 +36,8 @@ public class CurrencyDownloadAdapter extends SimpleCursorAdapter {
 
 		Currency currency = new Currency(cursor);
 		TextView abbr = (TextView) layout.findViewById(R.id.currencyAbbr);
-		if (abbr != null && currency.getName() != ""){
-			abbr.setText(currency.getName() + ": " + currency.getFullName());
+		if (abbr != null && currency.getCode() != ""){
+			abbr.setText(currency.getCode() + ": " + currency.getFullName());
 		}
 		
 		ImageView icon = (ImageView)layout.findViewById(R.id.currencyFlag);
@@ -58,8 +58,8 @@ public class CurrencyDownloadAdapter extends SimpleCursorAdapter {
 		
 		Currency currency = new Currency(cursor);
 		TextView abbr = (TextView) view.findViewById(R.id.currencyAbbr);
-		if (abbr != null && currency.getName() != ""){
-			abbr.setText(currency.getName() + ": " + currency.getFullName());
+		if (abbr != null && currency.getCode() != ""){
+			abbr.setText(currency.getCode() + ": " + currency.getFullName());
 		}
 		
 		ImageView icon = (ImageView)view.findViewById(R.id.currencyFlag);

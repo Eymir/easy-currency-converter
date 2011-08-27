@@ -49,11 +49,11 @@ public class Currency {
 		imgLookup.put("SGD", R.drawable.singapore_flag);
 		imgLookup.put("THB", R.drawable.thailand_flag);
 		imgLookup.put("ZAR", R.drawable.south_africa_flag);
-		
+		imgLookup.put("EUR", R.drawable.south_africa_flag);
 		
 	}
 	
-	private String name;
+	private String code;
 	private String fullName;
 	
 	private long lastUpdateDate;
@@ -61,16 +61,27 @@ public class Currency {
 	private double value;
 	
 	private int imgResourceID;
-
-	public Currency(String name, double value){
-		this.name = name;
+	
+	private boolean isTarget;
+	
+	public Currency(){
+		
+	}
+	
+	public Currency(String code, double value){
+		this.code = code;
 		this.value = value;
-		this.imgResourceID = imgLookup.get(this.name);
+		this.imgResourceID = imgLookup.get(this.code);
+	}
+
+	public Currency(String code, String fullName, double value){
+		this(code, value);
+		this.fullName = fullName;
 	}
 
 	public Currency(Cursor cursor){
-		this.name = cursor.getString(cursor.getColumnIndex(CurrencyStorageHelper.COL_CURRENCY_CODE));
-		this.fullName = cursor.getString(cursor.getColumnIndex(CurrencyStorageHelper.COL_CURRENCY_FULL_NAME));
+		this.code = cursor.getString(cursor.getColumnIndex(CurrencyStorageHelper.COL_CURRENCY_CODE));
+		this.fullName = cursor.getString(cursor.getColumnIndex(CurrencyStorageHelper.COL_DEFINITION_FULL_NAME));
 		
 		this.value = cursor.getDouble(cursor.getColumnIndex(CurrencyStorageHelper.COL_CURRENCY_VALUE));
 		this.lastUpdateDate = cursor.getLong(cursor.getColumnIndex(CurrencyStorageHelper.COL_LAST_UPDATE));
@@ -80,15 +91,15 @@ public class Currency {
 	/**
 	 * @return the name
 	 */
-	public String getName() {
-		return this.name;
+	public String getCode() {
+		return this.code;
 	}
 
 	/**
 	 * @param name the name to set
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	/**
@@ -119,5 +130,17 @@ public class Currency {
 
 	public String getFullName() {
 		return this.fullName;
+	}
+	
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public boolean isTarget() {
+		return this.isTarget;
+	}
+	
+	public void setTarget(boolean isTarget) {
+		this.isTarget = isTarget;
 	}
 }
